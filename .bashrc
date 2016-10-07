@@ -4,13 +4,62 @@ export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 export CLICOLOR=1 
 export PS1="\[\033[01;32m\]\u@\h\[\033[01;34m\] \W \$\[\033[00m\] "
 
-if [ "$OS" = "linux" ] ; then
-  alias ls='ls --color=auto' # For linux, etc
-  # ls colors, see: http://www.linux-sxs.org/housekeeping/lscolors.html
-  export LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rb=90'  #LS_COLORS is not supported by the default ls command in OS-X
-else
-  alias ls='ls -G'  # OS-X SPECIFIC - the -G command in OS-X is for colors, in Linux it's no groups
-fi
+_myos="$(uname)"
+
+case $_myos in 
+  Linux) 
+    alias ls='ls --color=auto' # For linux, etc
+    # ls colors, see: http://www.linux-sxs.org/housekeeping/lscolors.html
+    export LS_COLORS='di=1:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rb=90'  #LS_COLORS is not supported by the default ls command in OS-X
+    ;;
+  Darwin)
+    alias ls='ls -G'  # OS-X SPECIFIC - the -G command in OS-X is for colors, in Linux it's no groups
+    ;;
+  *)
+esac
+
+# Bash alias
+alias c='clear'
+
+alias ll='ls -la' #long listing
+alias l.='ls -d .*' #list hidden 
+
+## cd hacks
+alias cd..='cd ..'
+alias ..='cd ..'
+alias .1='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
+
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+alias mkdir='mkdir -pv'
+
+# vim boyz
+alias vi='vim'
+alias svim='sudo vim'
+alias edit='vim'
+
+## Network
+alias ports='netstat -tulanp' #list TCP/UDP ports
+
+## Ubuntu
+alias apt-get='sudo apt-get'
+alias update='sudo apt-get update && sudo apt-get upgrade'
+
+## SysAdmin
+alias meminfo='free -m -l -t' # memory info
+alias psmem='ps auxf | sort -nr -k 4' # get top process eating memory
+alias psmem10='ps auxf | sort -nr -k 4 | head 10'
+alias pscpu='ps auxf | sort -nr -k 3' # get top process eating cpu
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+alias cpuinfo='lscpu' # cput info
+
+alias wget='wget -c' # resume wget by default
 
 # Short cut alias
 alias ds='cd Dropbox/School\ 2015/Computational\ Phsyics\ III'
